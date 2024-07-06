@@ -1,13 +1,15 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
-import argparse
+from typing import List
+import argparse, requests
 
 # Point to the local server
 client: OpenAI = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 parser = argparse.ArgumentParser(description="Enter your prompt.")
-parser.add_argument("prompt", help="Type in a specific college name and some of your interests.", type=str)
+parser.add_argument("url", help="Type in a specific college url (home page)", type=str)
+parser.add_argument("interests", help="Type some of your interests.", type=str)
 
-prompt: str = ""
+prompt: List[str] = ""
 response: str = ""
 
 def get_response() -> None:
@@ -21,13 +23,19 @@ def get_response() -> None:
     )
     response = completion.choices[0].message.content
 
-def parse_college(prompt: str) -> None:
-    prompt = prompt
+def parse_college(url: str, interests: str) -> None:
+    """All the urls to be searched."""
+    get_all_content(url)
+
+def get_all_content(initial_url: str):
+    stack = []
+    
 
 def main() -> None:
     args = parser.parse_args()
-    prompt = args.prompt
-    parse_college(prompt)
+    url = args.url
+    interests = args.interests
+    parse_college(url, interests)
 
 if __name__ == "__main__":
     main()
