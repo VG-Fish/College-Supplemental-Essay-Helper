@@ -108,10 +108,11 @@ def get_all_content() -> str:
     print(f"Starting to look through all of the links. {len(urls) = }")
     count: int = 0
 
-    while urls:
+    while True:
         # Just in case
         if count >= MAX_URL_COUNT_QUIT or len(urls) >= MAX_URL_COUNT * 5:
             break
+
         print(f"\nNumber of urls to look through: {len(urls)}. Current {count = }")
         with ThreadPoolExecutor() as executor:
             for num, res in enumerate(executor.map(get_all_urls, urls)):
@@ -140,11 +141,12 @@ def get_all_content() -> str:
 
 def get_all_urls(url: str) -> Set[str]:
     driver = webdriver.Firefox(options=fire_fox_options)
-    driver.set_page_load_timeout(2)
+    driver.set_page_load_timeout(20)
     try:
         driver.get(url)
         content = driver.page_source
     except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
+        print(url)
         print(e)
         return set()
     
