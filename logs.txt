@@ -174,4 +174,1078 @@ Website design by the Deep Springs Communications Committee.
 comcom@deepsprings.
 edu.
 Search for:
-.     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS.     DO NOT GIVE GENERAL ADVICE.     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE.     THE MORE SPECIFIC, THE BETTER.     BE SURE TO BE VERY SPECIFIC AND CONCISE ".     Interests: mechatronics tennis----------------------------------------------------------------------------------------------------
+.     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS.     DO NOT GIVE GENERAL ADVICE.     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE.     THE MORE SPECIFIC, THE BETTER.     BE SURE TO BE VERY SPECIFIC AND CONCISE ".     Interests: mechatronics tennis----------------------------------------------------------------------------------------------------Context: User interests: mechatronics+tennis
+EVERYTHING BELOW IS DATA.
+--------------------------------------------------
+Clubs & Teams | MIT Edgerton Center.
+Skip to main content.
+Close.
+Main navigation.
+For MIT students.
+Subject Listings.
+Student Shops.
+Area 51 Shop.
+Rules of use.
+Tools & Equipment.
+Training.
+Edgerton Center Student Shop.
+Tools & Equipment.
+Training.
+Student Project Lab/ Makerspace.
+Tools & Equipment.
+Training.
+Clubs & Teams.
+Starting a New Team.
+FAQs.
+IAP.
+K-12 Education.
+Maker Resources for K-12 Educators ↗.
+Classroom Visits.
+Calendar.
+Topics.
+Biology.
+The Shape of Life.
+Living LEGO®.
+Electrical Engineering.
+Flashlight Building.
+Quizboards.
+Mechanical Engineering.
+LEGO® Car Rally.
+Gear Up/ Gear Down.
+Optics and Photography.
+Edgerton Explorations.
+Laser Mazes.
+Additional Topics.
+CSI: MIT.
+Grungy Groundwater.
+LEGO® Chemistry.
+Summer Programs.
+Engineering Design Workshop.
+GE Girls at MIT.
+You GO Girl!.
+Active Molecular Models.
+Molecule Sets.
+Chemical Reactions.
+Photosynthesis.
+Understanding Air.
+Understanding Oceans.
+Additional Reaction Mats.
+Molecule Sets for Public Events.
+Biology Sets.
+Protein Sets.
+DNA/RNA Sets.
+Biotechnnology Pack.
+tRNA Sets.
+Request a Visit.
+International Outreach.
+STEM Projects.
+Educator Workshops.
+Atoms & Molecules Workshops.
+DNA Workshops.
+Maker Workshops.
+High-speed imaging.
+Galleries.
+High-speed Imaging at the Edgerton Center.
+About.
+Staff.
+Press.
+News.
+Give ↗.
+Contact and Directions.
+MIT Parking Pass Webform Page.
+Events.
+Newsletter.
+Search.
+Follow us.
+Breadcrumb.
+Home.
+Welcome to the MIT Edgerton Center!.
+Clubs & Teams.
+Clubs & Teams.
+The Edgerton Center's clubs and teams program provides students with the resources, expertise, and encouragement to take on all kinds of engineering challenges for fun and competition around the world.
+.
+From solar cars, to battlebots, to rockets, students apply their classroom lessons to develop new engineering strategies and break boundaries in dozens of fields.
+ Each team is a fully student-run organization complete with fundraising, communications, recruiting, and project management components.
+ Alumni from these teams have gone on to work at tech giants like NASA and Tesla.
+.
+Learn more about the clubs and teams and how you can support them below.
+.
+MIT Arcturus.
+MIT Arcturus is building a small Autonomous Surface Vehicle (ASV) and drone to complete a variety of tasks that mimic real-world challenges facing the maritime industry.
+.
+Assistive Technology Club.
+Making the world more accessible to everyone by building connections within our community and fostering collaborative efforts to create inclusive technology.
+.
+ChemE Cube.
+Creating modular solutions to pressing sustainability challenges.
+.
+Combat Robotics Club.
+MIT’s premier destination for robot combat sports.
+Design Build Fly.
+Aircraft for the AIAA Design/Build/Fly competition.
+Driverless.
+Building and racing full-scale autonomous vehicles.
+Electric Vehicle Team.
+Dedicated to the research, design, and operation of EVs.
+First Nations Launch.
+Using Indigenous methodologies and engineering for rockets and payloads.
+.
+Make It to Break It.
+Make It to Break It was founded by a group of MIT students in March of 2022 with the goal of building things to break world records!.
+MITERS.
+MIT Electronic Research Society: a student-run project space and machine shop.
+Motorsports.
+Through rigorous engineering, technical expertise, and effective management, students become engineering leaders.
+RoboTeam.
+Dedicated to exploring new spaces for the application of robotics.
+Rocket Team.
+Designing, building, and testing rockets.
+Solar Electric Vehicle Team.
+Design, build, and race solar cars while gaining invaluable engineering experience.
+Spokes.
+Cycling across America to host STEM (Science, Technology, Engineering, and Math) learning festivals for under-resourced areas.
+Sustainable Engine Team.
+Embracing hydrogen-focused innovation, advanced fabrication, and multiphysics simulation-guided design, our team aims to build high-efficiency, carbon-free power systems.
+.
+MIT Wind Team.
+An undergraduate design team focused on innovating the next generation of wind energy systems.
+Past clubs & teams.
+Some teams have been around for more than 25 years.
+.
+Learn about the teams that were a part of the Edgerton Center's history.
+.
+Start a club or team.
+The Edgerton Center supports student ideas with the resources – space, equipment, advising, and more – to engage in their passion projects for fun and/or competition around the world.
+.
+Already part of the clubs & teams program?.
+Need to know the ins and outs of working with sponsors, travel, pro cards, and more?.
+Don't miss our next newsletter!.
+Sign Up.
+Footer.
+Accessibility.
+Staff Login.
+Room Calendar.
+Contact and Directions.
+Follow us.
+MIT Edgerton Center.
+/ 77 Massachusetts Avenue, 4-408 / Cambridge, MA 02139  / 617.
+253.
+4629.
+© 2022 Massachusetts Institute of Technology
+MIT Edgerton Center - K12 Makerspaces.
+Makerspace Resources for K-12 Educators.
+Home.
+Teacher PD.
+Create Projects.
+Run a Makerspace.
+Maker Tools.
+Articles and Books.
+Get the K-12 Maker Newsletter.
+Don't miss the latest news, project ideas, PD announcements, findings, and more! ​ ​.
+Sign Up.
+Why Make?.
+Energize.
+any academic subject with student-focused.
+​Maker projects.
+.
+Empower.
+your students with skills in critical thinking, problem- solving, collaboration, and communication.
+.
+Inspire.
+your students to experiment, iterate, and become self-directed learners.
+​.
+Learn.
+to use digital fabrication, coding, electronics, and handcrafting ​effectively in your classroom.
+.
+​.
+Maker Projects.
+Inspiration and teacher tools for creating your own Maker projects for K-12 academic classes.
+.
+Instructables.
+We develop and publish comprehensive Instructables geared towards K-12 Maker educators, but enjoyable (and doable!) by anyone.
+.
+Professional Development for Teachers.
+Get  info and sign up for our Maker tool training and project design workshops for K-12 teachers and any adult Makers.
+Maker Tools.
+Choose the right software, tools, and materials for your space.
+Downloadable charts.
+Training guides.
+Run a Makerspace.
+Organize and run your own Makerspace.
+Best practices to foster safety, communication, collaboration, student ownership, and play.
+Follow a step-by-step guide to set up yours.
+Webinars.
+Watch recordings and get resources from our K-12 Maker project tutorial webinars.
+ Kind of like a live Instructable - we will take you through the tools, materials, and techniques needed to create these adaptable Maker starter projects that you can use in your classroom.
+​.
+For decades before the dawn of the Maker movement, the Edgerton Center has been a home for Makers: collaborative, playful, experiential learners who believe.
+everyone should have access to the tools for building a better world.
+.
+ We began by supporting MIT students as they came together and learned how to build the things they love.
+ Over the years, we've grown to support local community members, international schools, and STEAM education organizations looking for access to tools, activities, and collaborators.
+.
+The.
+K-12 Maker team.
+prepares teachers to lead engaging and relevant learning experiences, giving their students the tools to create, the courage to fail, and the empathy to solve problems as a community.
+ We do this through professional development workshops and free online resources.
+ Teachers transform from direct instructors to facilitators of meaningful projects that utilize creative, current technologies.
+.
+We continually improve our materials and approaches to Making in the classroom as technology and the educational landscape evolves.
+ W.
+e invite K-12 educators to join our community of Makers and to use this webiste as a.
+resource for setting up, operating and enjoying Makerspaces.
+.
+Contact Us.
+Step-by-Step guide to running a Makerspace.
+Materials for Workshop Participants.
+​​Recursos en Español.
+About Us.
+Accessibility.
+​.
+Privacy.
+Maker Resources for K-12 Educators.
+© 2023.
+by.
+MIT Edgerton Center.
+is licensed under.
+CC BY-NC-SA 4.
+0.
+Home.
+Getting Started.
+>.
+What is Making?.
+Types of Makerspaces.
+Goals.
+About Us.
+Contact.
+Teacher PD.
+Webinars.
+Maker Project Workshops.
+Master Making in the Classroom.
+Maker PD Packages.
+Invention Ed.
+Workshop Materials.
+Create Projects.
+Project Tutorials.
+Maker Methodology.
+Idea Gallery.
+K-12 Maker Instructables.
+Special Programs.
+>.
+Aprendo Creando.
+>.
+Presentaciones.
+FullSTEAM.
+Run a Makerspace.
+Design Guide.
+Facilities and Storage.
+Maker tools.
+Training and Supervision.
+Staff, Hours and Scheduling.
+Events and Growth.
+Maker Tools.
+Shop Tools and Materials.
+Electronics.
+Physical Computing.
+2D Design Software.
+Vinyl/Craft Cutters.
+Laser Cutting.
+3D  Design Tools.
+3D Printing.
+Photo and Video.
+Sewing.
+Articles and Books.
+Getting Started.
+>.
+What is Making?.
+Types of Makerspaces.
+Goals.
+About Us.
+Contact.
+Webinars.
+Maker Project Workshops.
+Master Making in the Classroom.
+Maker PD Packages.
+Invention Ed.
+Workshop Materials.
+Project Tutorials.
+Maker Methodology.
+Idea Gallery.
+K-12 Maker Instructables.
+Special Programs.
+>.
+Aprendo Creando.
+>.
+Presentaciones.
+FullSTEAM.
+Design Guide.
+Facilities and Storage.
+Maker tools.
+Training and Supervision.
+Staff, Hours and Scheduling.
+Events and Growth.
+Shop Tools and Materials.
+Electronics.
+Physical Computing.
+2D Design Software.
+Vinyl/Craft Cutters.
+Laser Cutting.
+3D  Design Tools.
+3D Printing.
+Photo and Video.
+Sewing
+Explore | Giving to MIT.
+Skip to main content.
+Giving to MIT.
+User account menu.
+Log In.
+Main navigation.
+Explore.
+Ways of Giving.
+Give Now.
+Credit Card.
+Check.
+Wire Transfers.
+Stock.
+Mutual Fund Transfers.
+Donor-Advised Funds.
+Give Over Time.
+Recurring Gifts.
+Multi-Year Pledges.
+Electronic Funds Transfers.
+Payroll Deductions.
+Learn More.
+Planned Giving.
+IRA QCDs.
+Matching Gifts.
+Memorial & Honorary Gifts.
+International Gifts.
+Bitcoin and Cryptocurrency.
+FAQ.
+Why Support MIT.
+Annual Giving.
+Leadership Giving.
+Planned Giving.
+Give now.
+Authenticated User Account Menu.
+Explore.
+Ways of Giving.
+GIVE NOW.
+Credit Card.
+Check.
+Wire Transfers.
+Stock.
+Mutual Fund Transfers.
+Donor-Advised Funds.
+GIVE OVER TIME.
+Recurring Gifts.
+Multi-Year Pledges.
+Electronic Funds Transfers.
+Payroll Deductions.
+LEARN MORE.
+Planned Giving.
+Bequests.
+Gifts That Provide Income.
+How To Fund Your Gift.
+Katharine Dexter McCormick (1904) Society.
+Donor & Advisor Resources.
+Gift Calculator.
+Corridor Newsletter.
+Talk With Us.
+IRA Charitable Rollover.
+Matching Gifts.
+Memorial & Honorary Gifts.
+International Gifts.
+Bitcoin and Cryptocurrency.
+FAQ.
+Why Support MIT.
+Annual Giving.
+Leadership Giving.
+Parent Leadership Circle.
+Planned Giving.
+My Account.
+Explore.
+Faculty & Research.
+Labs, programs, and centers.
+Centers.
+Edgerton Center.
+Browse Centers.
+Edgerton Center.
+Edgerton Center.
+Suggested Funds.
+Expand All +.
+Collapse All –.
+Edgerton Center Students Projects.
+2530071.
+Give.
+More.
++.
+Less.
+–.
+Gift of Alumni/ae and friends to support student innovation and ideas for design and engineering through the Edgerton Center.
+Give.
+Edgerton Center Director's Fund.
+3139250.
+Give.
+More.
++.
+Less.
+–.
+Gifts of alumni/ae and friends to establish an endowed fund to support the.
+Edgerton Center.
+at the discretion of the Director of the Edgerton Center.
+.
+Give.
+Edgerton Center K-12 Programs.
+2738582.
+Give.
+More.
++.
+Less.
+–.
+Gifts from alumni/ae and friends to support the Edgerton Outreach (K-12) Program at MIT.
+.
+Give.
+Edgerton Center Fund.
+2079600.
+Give.
+More.
++.
+Less.
+–.
+Gifts of alumni/ae and friends to support the MIT Edgerton Center’s ongoing work including its K-12 STEM outreach programs, MIT Student Clubs and Teams, the Edgerton Student Shop and Edgerton Center classes.
+.
+Give.
+All Edgerton Center.
+Expand All +.
+Collapse All –.
+Aeroastro DBF Club Fund.
+2744379.
+Give.
+More.
++.
+Less.
+–.
+Fund for the Design/Build/Fly (DBF) team, which designs and builds an aircraft every year
+to compete in the annual DBF competition hosted by the AIAA.
+ More information
+about this competition can be found at .
+ The DBF team
+activities begin in the fall and these primarily consist of conceptual aircraft
+design activities (in accordance with the current competition rules) as well as
+prototype testing for certain materials.
+ The majority of the manufacturing and
+testing occurs over IAP, during which at least one full-scale aircraft prototype
+is built and flown.
+.
+Give.
+Arcturus - Autonomous Robotic Competition Team.
+2530184.
+Give.
+More.
++.
+Less.
+–.
+Gifts to support Arcturus, the Autonomous Robotic Competition Team within the Edgerton Center.
+.
+Give.
+Combat Robotics Club.
+2747349.
+Give.
+More.
++.
+Less.
+–.
+Gifts to support the Combat Robotics Club, a competitive robotics competition student group, through the Edgerton Center.
+.
+Give.
+Edgerton Center Director's Fund.
+3139250.
+Give.
+More.
++.
+Less.
+–.
+Gifts of alumni/ae and friends to establish an endowed fund to support the.
+Edgerton Center.
+at the discretion of the Director of the Edgerton Center.
+.
+Give.
+Edgerton Center Fund.
+2079600.
+Give.
+More.
++.
+Less.
+–.
+Gifts of alumni/ae and friends to support the MIT Edgerton Center’s ongoing work including its K-12 STEM outreach programs, MIT Student Clubs and Teams, the Edgerton Student Shop and Edgerton Center classes.
+.
+Give.
+Edgerton Center K-12 Programs.
+2738582.
+Give.
+More.
++.
+Less.
+–.
+Gifts from alumni/ae and friends to support the Edgerton Outreach (K-12) Program at MIT.
+.
+Give.
+Edgerton Center Students Projects.
+2530071.
+Give.
+More.
++.
+Less.
+–.
+Gift of Alumni/ae and friends to support student innovation and ideas for design and engineering through the Edgerton Center.
+Give.
+LEGO Project/Edgerton Center Gifts.
+2732234.
+Give.
+More.
++.
+Less.
+–.
+Gifts of alumni/ae and friends to support the distribution of the MIT Edgerton Center's hands-on, LEGO-based, science curriculum sets to middle schools and high schools with limited resources.
+.
+Give.
+MIT Driverless/FSAE Autonomous.
+2530098.
+Give.
+More.
++.
+Less.
+–.
+Gifts from alumni/ae and friends to support MIT students who will modify an electric formula SAE vehicle to run autonomously.
+.
+Give.
+MIT Electric Vehicle Team - MIT EVT.
+2742467.
+Give.
+More.
++.
+Less.
+–.
+Gifts from alumni/ae and friends to support the Electric Vehicle Team at MIT.
+.
+Give.
+MIT Motorsports / Formula SAE Expendable Fund.
+2733854.
+Give.
+More.
++.
+Less.
+–.
+Current-use gifts from alumni and friends to support for MIT Motorsports.
+.
+Give.
+MIT Robotics Team.
+2859716.
+Give.
+Give.
+MIT Rocket Team Fund.
+2530009.
+Give.
+More.
++.
+Less.
+–.
+Gifts from alumni/ae and friends to support the MIT Rocket Team.
+.
+Give.
+MITERS Fund.
+2739367.
+Give.
+More.
++.
+Less.
+–.
+Gifts from alumni/ae and friends to support the MITERS student club at MIT.
+.
+Give.
+Solar/Electric Vehicle Team.
+2249000.
+Give.
+More.
++.
+Less.
+–.
+Students design, build, and race solar cars while gaining invaluable engineering experience.
+.
+Give.
+SPOKES.
+2530032.
+Give.
+More.
++.
+Less.
+–.
+Inspiring students to learn what they love: Spokes America is a bike trip across the United States designed to make STEM accessible to students everywhere.
+.
+Give.
+Back to Explore.
+Giving to MIT.
+Give now.
+Explore.
+Ways of Giving.
+Why Support MIT.
+My Account.
+Information for.
+Foundations.
+Corporations.
+Contact.
+617.
+253.
+0129.
+Contact us.
+FAQ.
+MIT Alumni Association.
+Terms of Use.
+Privacy Statement.
+Accessibility
+MIT - Massachusetts Institute of Technology.
+Skip to content ↓.
+Massachusetts Institute of Technology.
+Education.
+Research.
+Innovation.
+Admissions + Aid.
+Campus Life.
+News.
+Alumni.
+About MIT.
+More.
+↓.
+Admissions + Aid.
+Campus Life.
+News.
+Alumni.
+About MIT.
+Menu.
+↓.
+Search.
+Menu.
+Explore websites, people, and locations.
+What are you looking for?.
+Top resources for.
+prospective students.
+current students.
+faculty & staff.
+alumni.
+parents & families.
+all resources.
+Featured topic.
+climate change.
+Updates from campus.
+: Read messages from MIT's leaders regarding recent events on campus, sharing relevant policies, and correcting misinformation.
+.
+Last year, several strains of the extremophile microbes survived a trip to the International Space Station.
+.
+Spotlight: Jul 7, 2024.
+Researchers engineered microbes to withstand extreme conditions, including being formulated into powders or pills.
+ “We're thinking about a broad set of applications, whether it's missions to space, human applications, or agricultural uses,”.
+Giovanni Traverso.
+says.
+.
+Jul 7, 2024.
+Full story.
+Share:.
+Twitter.
+Facebook.
+Explore more spotlights.
+MORE FROM THE MIT COMMUNITY.
+RESEARCH.
+A nationwide bottle deposit program could increase recycling of PET plastic to 82 percent, with nearly two-thirds of all PET bottles being recycled into new bottles, researchers report.
+ Policies would also be needed to ensure a sufficient demand for the recycled material.
+.
+INNOVATION.
+With a new surgical intervention and neuroprosthetic interface, researchers restored a natural walking gait in people with amputations below the knee.
+ Seven patients could walk faster, avoid obstacles, and climb stairs more naturally than people with a traditional amputation.
+.
+RESEARCH.
+A new computational method can predict chemical reactions that could generate compounds with desirable pharmaceutical properties.
+ The approach could help drug companies design molecules of interest, before spending money on a process that might not work.
+.
+IN THE MEDIA.
+The Wall Street Journal profiled economist David Autor, writing that his “thinking helped change our understanding of the American labor market.
+” Autor said that in his view, “The fastest way to improve people’s welfare is to improve the labor market.
+”.
+COMMUNITY.
+By designing new tools that can analyze huge libraries of immune cells and their targets, Michael Birnbaum hopes to generate better T cell therapies for cancer and other diseases.
+ “T-cells are so diverse in terms of what they recognize and what they do,” he says.
+.
+VIDEO.
+In MAS.
+S66/4.
+154/16.
+89 (Space Architectures), students designed, prototyped, and tested structures to support human habitation in space.
+ “We need to be designing habitats for human experiences that people will want to live in for a long time,” Skylar Tibbits says.
+.
+Want more about MIT?.
+Explore.
+more spotlights.
+, or 
+    subscribe to receive.
+daily or weekly doses of MIT.
+in your inbox.
+.
+Subscribe.
+Massachusetts Institute of Technology.
+Education.
+Research.
+Innovation.
+Admissions + Aid.
+Campus Life.
+News.
+news.
+mit.
+edu.
+About MIT.
+Alumni.
+Join us in building a better world.
+.
+Massachusetts Institute of Technology.
+77 Massachusetts Avenue, Cambridge, MA, USA.
+Visit.
+Map.
+Events.
+People.
+Careers.
+Contact.
+Privacy.
+Accessibility.
+Social Media Hub.
+MIT@twitter.
+MIT@facebook.
+MIT@youtube.
+MIT@instagram
+Make It to Break It | MIT Edgerton Center.
+Skip to main content.
+Close.
+Main navigation.
+For MIT students.
+Subject Listings.
+Student Shops.
+Area 51 Shop.
+Rules of use.
+Tools & Equipment.
+Training.
+Edgerton Center Student Shop.
+Tools & Equipment.
+Training.
+Student Project Lab/ Makerspace.
+Tools & Equipment.
+Training.
+Clubs & Teams.
+Starting a New Team.
+FAQs.
+IAP.
+K-12 Education.
+Maker Resources for K-12 Educators ↗.
+Classroom Visits.
+Calendar.
+Topics.
+Biology.
+The Shape of Life.
+Living LEGO®.
+Electrical Engineering.
+Flashlight Building.
+Quizboards.
+Mechanical Engineering.
+LEGO® Car Rally.
+Gear Up/ Gear Down.
+Optics and Photography.
+Edgerton Explorations.
+Laser Mazes.
+Additional Topics.
+CSI: MIT.
+Grungy Groundwater.
+LEGO® Chemistry.
+Summer Programs.
+Engineering Design Workshop.
+GE Girls at MIT.
+You GO Girl!.
+Active Molecular Models.
+Molecule Sets.
+Chemical Reactions.
+Photosynthesis.
+Understanding Air.
+Understanding Oceans.
+Additional Reaction Mats.
+Molecule Sets for Public Events.
+Biology Sets.
+Protein Sets.
+DNA/RNA Sets.
+Biotechnnology Pack.
+tRNA Sets.
+Request a Visit.
+International Outreach.
+STEM Projects.
+Educator Workshops.
+Atoms & Molecules Workshops.
+DNA Workshops.
+Maker Workshops.
+High-speed imaging.
+Galleries.
+High-speed Imaging at the Edgerton Center.
+About.
+Staff.
+Press.
+News.
+Give ↗.
+Contact and Directions.
+MIT Parking Pass Webform Page.
+Events.
+Newsletter.
+Search.
+Follow us.
+Breadcrumb.
+Home.
+Make It to Break It.
+Make It to Break It.
+Make It to Break It was founded by a group of MIT students in March of 2022 with the goal of building things to break world records!.
+Our current project is to break the record for the world's largest Rube Goldberg machine with a goal of more than 500 actions!.
+We comprise about 50 students from MIT and beyond, all of whom are dedicated to using their creative and technical skills to create things the world has never seen.
+.
+AT A GLANCE.
+Number of Members:.
+34 members in 2021-2022.
+Team leaders:.
+Kanokwan Tungkitkancharoen, Alexander Greer, Ian Rosado, Frankie Schulte, Claire Lu.
+Year began:.
+2022.
+Location:.
+N51 Milkdrop.
+Join the team:.
+We welcome all MIT students of all years! Check out our website for information on how to join.
+ We're looking forward to seeing you at an upcoming meeting!.
+Team Website:.
+http://mitbi.
+mit.
+edu/.
+Follow.
+Don't miss our next newsletter!.
+Sign Up.
+Footer.
+Accessibility.
+Staff Login.
+Room Calendar.
+Contact and Directions.
+Follow us.
+MIT Edgerton Center.
+/ 77 Massachusetts Avenue, 4-408 / Cambridge, MA 02139  / 617.
+253.
+4629.
+© 2022 Massachusetts Institute of Technology
+Home | Captioning and Accessibility.
+Skip to main content.
+Captioning & Accessibility.
+Search.
+Search.
+Home.
+Campus Resources.
+Captioning.
+Digital Accessibility.
+Accessibility Request Form.
+Search.
+Search.
+Our Commitment.
+MIT is committed to providing an environment that is accessible to individuals with disabilities.
+ We invite all to learn about captioning and accessibility of digital content, and to report any accessibility issues or captioning requests in the form link on this page.
+.
+Ways to get your video captioned.
+(MIT only).
+Training material about captioning.
+(MIT only).
+Accessibility Request Form.
+(Public).
+Division of Student Life.
+| Massachusetts Institute of Technology
+.     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS.     DO NOT GIVE GENERAL ADVICE.     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE.     THE MORE SPECIFIC, THE BETTER.     BE SURE TO BE VERY SPECIFIC AND CONCISE ".     Interests: mechatronics tennis
+----------------------------------------------------------------------------------------------------Context: User interests: mechatronics+tennis
+EVERYTHING BELOW IS DATA.
+--------------------------------------------------
+Home | Deep Springs College.
+Program.
+Mission.
+The Academic Pillar.
+Academics at Deep Springs.
+Curriculum Structure.
+Faculty.
+Academic Calendar.
+The Labor Pillar.
+The Labor Program.
+Farm & Ranch.
+Staff.
+The Self-Governance Pillar.
+Student Body & Committees.
+Ground Rules.
+Trustees & Accreditation.
+Our History.
+Apply Now.
+Admissions Homepage.
+President’s Letter to Potential Applicants.
+Deadlines, Eligibility, and Other Information.
+Admissions FAQ.
+Apply.
+Student Life.
+A Day at Deep Springs.
+Testimonials.
+Campus.
+After Deep Springs.
+Alumni.
+Transcript Requests.
+Alumni Directory.
+Contribute.
+Support Deep Springs.
+Donate Now.
+Account.
+More.
+College News.
+In Memoriam.
+Publications and Media.
+Historical Photo Archive.
+Employment.
+Employment.
+Employment FAQ.
+Living at Deep Springs.
+Academic Job Openings.
+Staff Job Openings.
+Contact.
+A Life of Leadership and Service.
+Deep Springs College.
+What is Deep Springs?.
+Founded in 1917, Deep Springs College is a unique institution of higher learning.
+ The educational program is built upon three pillars: academics, student self-government, and manual labor.
+ The school is located forty miles from Bishop, California on an isolated cattle ranch in Deep Springs Valley.
+.
+Between twelve and fifteen students are admitted each year.
+ Each receives a full scholarship; the college covers the costs of tuition, room, and board for every student offered admission.
+ In exchange, Deep Springs students are expected to dedicate themselves to lives of service to humanity.
+ Alumni have gone on to exemplify this ideal in a variety of fields, including politics, science, journalism, academics, agriculture, medicine, law, business, and design.
+.
+The three pillars, which comprise students’ formal responsibilities in their two years at the college, prompt each student to take real responsibility for and ownership of the community.
+ Students are expected to bring a high level of preparation and engagement to their classes, which are generally constructed around seminar-style discussion and often have fewer than eight participants.
+ The Student Body is responsible for many aspects of running the College, admitting students, hiring faculty, and reviewing student and faculty performance.
+ Each student also labors roughly twenty hours each week.
+ Labor positions include working on the farm and ranch, as well as daily tasks of cooking, cleaning, and maintaining facilities and vehicles.
+.
+Since the founding of Deep Springs in 1917, four other Nunnian institutions have come into existence.
+ Each is built around the three pillars of Labor, Academics, and Self-Governance.
+ While their approaches vary, each is oriented towards the development of their students’ moral characters in addition to their minds.
+ These include Gull Island Institute, in Massachusetts; Tidelines Institute and Outer Coast in Alaska; and Thoreau College, in Wisconsin.
+.
+Together with the Telluride Association, founded in 1911, these compose.
+The League of Nunnian Schools.
+.
+ The League aims to support existing and developing Nunnian projects in America and around the world.
+ If you have questions, requests, or would like to otherwise contact the League, please write to.
+comcom@deepsprings.
+edu.
+.
+.
+To make a gift to the most innovative and transformative college in the world and join our mailing list, please visit our giving page.
+here.
+.
+.
+Academics.
+Like the rest of life at Deep Springs, academics is a study in responsibility and cooperation, as well as the course material.
+ Classes are small—the average is eight students.
+ With such small classes, thorough preparation and class participation are essential and expected.
+.
+There are no majors.
+ Most students take two to three classes per semester, choosing from offerings in the humanities, social sciences, natural sciences and the arts.
+ Many classes are discussion-based.
+ A sample of recent course offerings include Conservation Science, Aristotle’s.
+Ethics.
+, Painting, Mathematics in Political Life, The Modern Essay, Race and Education, Magical Realism, War and Peace in the Congo, and The Poetry of Emily Dickinson.
+.
+The distinctive quality of the Deep Springs academic program is that it treats students not as consumers but as creators of their education and as stewards of a joint intellectual project.
+ The Curriculum Committee (staffed and chaired by students) selects the college’s professors, and the Student Body determines each semester’s curriculum by choosing courses from a variety of proposals submitted by each professor.
+ As mentioned above, classes rely heavily on student participation; thorough preparation and robust engagement is seen as a student’s responsibility to the entire class.
+ Students not only drive most class conversations but are also responsible for thinking critically on how each course can improve, attempting to improve their own participation, giving feedback to other students and the professor, and often helping decide questions of class structure.
+.
+After completing Deep Springs’ two-year program, most students transfer to four-year institutions to finish their BA or BS.
+ Students receive support and guidance throughout the transfer process.
+ Many students go on to world-class universities including Yale, Stanford, Brown, and Chicago.
+.
+Click.
+here.
+for more information on the Academic Pillar.
+.
+Labor.
+In addition to their academic and self-governance responsibilities, each student at Deep Springs works approximately twenty hours a week.
+ Students do everything from milking our two dairy cows, to irrigating our 155-acre alfalfa farm, to cooking meals and cleaning the community’s dishes three times a day.
+ Most students switch labor positions every two months, though some positions require a four month commitment.
+.
+While students learn how to be useful on a farm, most do not go on to work in agriculture.
+ Deep Springs is a fully operational cattle ranch and alfalfa farm – we sell our hay and our beef – but the labor pillar is valued most for its pedagogical function.
+ Work is not conducted in exchange for the scholarship.
+ Rather, the labor program allows students to contemplate their role in a community, to practice working hard, and to foster a sense of ownership and responsibility.
+.
+“There’s an obvious necessity to the work we do here.
+ Cows need to be fed.
+ The garbage needs to be taken out.
+ Eggs need to be rinsed so that they can be used for breakfast.
+ You need to take your responsibilities seriously because there are immediate and urgent consequences if you don’t do your job well.
+ The vast majority of my personal growth has come from a series of mistakes.
+ You mess up, you figure out how to proceed, and you ultimately learn how to do a better job .
+ The labor pillar gives you room to fail, and that’s crucial.
+” – Michael Leger, DS16 New Brunswick, Canada.
+Click.
+here.
+for more information on the labor pillar.
+.
+STUDENT SELF-GOVERNANCE.
+Students at Deep Springs participate in running the college itself in ways that are not possible at larger institutions.
+ The Student Body exists as a discrete, self-governing entity within the College, tasked with governing itself and working with the staff and faculty in the day-to-day operation of the college.
+.
+The Student Body convenes at least once a week to deliberate and take action on issues concerning community life, labor, academic planning, disciplinary matters, election of  student office holders, and more.
+ Students are elected to positions of leadership within the Student Body and the larger community.
+ Elected positions include Student Body President; Labor Commissioner, who assigns students labor positions and is in charge of making sure the labor program runs smoothly; and Student Trustee, one of two students who sits on the Board of Trustees of the College as full voting members.
+.
+Additionally, students serve on one of four standing committees.
+.
+The Applications Committee.
+handles student admissions.
+.
+The Curriculum Committee.
+handles faculty hiring, sets academic policy, reviews cases of academic misconduct, guides course selection and makes recommendations for faculty retention.
+.
+The Review and Re-invitations Committee.
+reviews individual student progress throughout the year, facilitates a biannual process of written or verbal feedback between all students,.
+and leads the re-invitation process by which students are or aren’t re-invited for a second year.
+.
+ The.
+Communications Committee.
+manages relations with the outside world, deliberating on press requests, publishing the biannual alumni newsletter and maintaining this website! Each committee is chaired by a student and meets weekly throughout the year.
+.
+Since Deep Springs is only a two-year program, students do not often see the full outcomes of their decisions.
+ But just as they are the recipients of decisions made by students before them, so they, in turn, are obligated to try to make the best choices possible for students who follow.
+ This chain of responsibility, from one generation of students to the next, continually reinforces and reinvigorates the.
+gravity students at Deep Springs take in governing their college.
+.
+.
+Contact.
+Board of Trustees & Accreditation.
+Academic Calendar.
+Facebook.
+Visitation Policy.
+Deep Springs College.
+HC72 Box 45001.
+Dyer, NV 89010.
+Website design by the Deep Springs Communications Committee.
+comcom@deepsprings.
+edu.
+Search for:
+.     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS.     DO NOT GIVE GENERAL ADVICE.     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE.     THE MORE SPECIFIC, THE BETTER.     BE SURE TO BE VERY SPECIFIC AND CONCISE ".     Interests: mechatronics tennis
+----------------------------------------------------------------------------------------------------Context: User interests: mechatronics+tennis
+EVERYTHING BELOW IS DATA.
+--------------------------------------------------
+.     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS.     DO NOT GIVE GENERAL ADVICE.     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE.     THE MORE SPECIFIC, THE BETTER.     BE SURE TO BE VERY SPECIFIC AND CONCISE ".     Interests: mechatronics tennis
+----------------------------------------------------------------------------------------------------Context: User interests: mechatronics+tennis
+EVERYTHING BELOW IS DATA.
+--------------------------------------------------
+.     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS.     DO NOT GIVE GENERAL ADVICE.     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE.     THE MORE SPECIFIC, THE BETTER.     BE SURE TO BE VERY SPECIFIC AND CONCISE ".     Interests: mechatronics tennis
+----------------------------------------------------------------------------------------------------

@@ -33,6 +33,7 @@ stack: List[str] = []
 seen: Set[str] = set()
 prompt: str = ""
 response: str = ""
+starting: bool = True
 
 args = parser.parse_args()
 MAX_URL_COUNT = args.MAX_URL_COUNT
@@ -71,25 +72,27 @@ def initialize_stack(college: str, interests: str) -> None:
     college = compress_str(college)
     interests = compress_str(interests)
 
-    initial_url: str = f"https://www.google.com/search?q={college}+{interests}+opportunities+or+activities"
-    print(initial_url)
-    driver.get(initial_url)
+    starting_initial_url: str = f"https://www.google.com/search?q={college}+{interests}+opportunities+or+activities"
+    print(f"{starting_initial_url = }")
+    stack.append(starting_initial_url)
 
+    with ProcessPoolExecutor() as executor:
+        for new_links, thread_seen in executor.map(get_all_urls, stack):
+            stack.extend(new_links)
+            seen.union(thread_seen)
+    global starting
+    starting = False
+
+    print("Finished adding initial links...")
     context.append(f"User interests: {interests}\nEVERYTHING BELOW IS DATA.\n" + "-" * 50)
-
-    # To get the first url from the google search and go from there.
-    content: bytes = driver.page_source
-    soup = BeautifulSoup(content, "lxml")
-    initial_url = soup.find("a", attrs={"jsname": "UWckNb"}).get("href")
-    stack.append(initial_url)
-    seen.add(initial_url)
-    driver.quit()
 
 def compress_str(input: str) -> str:
     input = '+'.join(input.split())
     return input
 
 def get_all_content() -> str:
+    print(f"Starting processing. {len(stack) = }")
+
     count: int = 0
     while stack:
         with ProcessPoolExecutor() as executor:
@@ -118,6 +121,16 @@ def get_all_content() -> str:
     return "Context: " + "\n".join(context)
 
 def get_all_urls(url: str) -> List[str]:
+    # Bruh
+    global starting
+    def add_url(url: str) -> None:
+        if starting:
+            thread_seen.add(url)
+            new_links.append(url)
+        elif url not in seen and passed_link_check(url):
+            thread_seen.add(url)
+            new_links.append(url)
+
     global seen
     new_links, thread_seen = [], seen
     driver = webdriver.Firefox(options=fire_fox_options)
@@ -130,11 +143,16 @@ def get_all_urls(url: str) -> List[str]:
         return []
     
     soup = BeautifulSoup(content, "lxml")
-    for tag in soup.find_all("a"):
-        link = tag.get("href")
-        if link not in seen and passed_link_check(link):
-            thread_seen.add(link)
-            new_links.append(link)
+    
+    if starting:
+        for tag in soup.find_all("a", attrs={"jsname": "UWckNb"}):
+            link = tag.get("href")
+            add_url(link)
+    else:
+        for tag in soup.find_all("a"):
+            link = tag.get("href")
+            add_url(link)
+
     return new_links, thread_seen
 
 def get_url_content(url: str) -> str:
@@ -150,7 +168,7 @@ def get_url_content(url: str) -> str:
     finally:
         driver.quit()
 
-def passed_link_check(link: str) -> bool:
+def passed_link_check(link: str, starting: bool = False) -> bool:
     if not link:
         return False
     elif college not in link:
