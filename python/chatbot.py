@@ -196,4 +196,7 @@ if __name__ == "__main__":
     start = time.time()
     parse_college(college, interests)
     end = time.time()
+    
     print(f"Total time: {(end - start):2f}")
+    with open("logs.txt", "a") as fp:
+        fp.write(f"Total time: {(end - start):2f}\n")
