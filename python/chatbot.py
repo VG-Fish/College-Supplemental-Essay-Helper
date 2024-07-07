@@ -1,10 +1,10 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
-from typing import List, Set 
+from typing import List, Set
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import selenium.common.exceptions as selenium_exceptions
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 import argparse, validators
 
 # Point to the local server
@@ -19,7 +19,20 @@ parser.add_argument("interests", help="Type some of your interests in one string
 parser.add_argument("MAX_URL_COUNT", help="Max amount of urls in the stack.", default=100, type=int)
 parser.add_argument("MAX_URL_COUNT_QUIT", help="Max amount of times the stack can have max amount of urls before stopping.", default=10, type=int)
 
-black_list: List[str] = ["youtube", "youtu.be", "facebook", "threads", "instagram", "tiktok", "twitter", "calendar", "mail", "payment"]
+black_list: List[str] = [
+    "youtube", 
+    "youtu.be", 
+    "facebook", 
+    "threads", 
+    "instagram", 
+    "tiktok",
+    "twitter",
+    "calendar", 
+    "mail", 
+    "payment",
+    "princetonreview",
+    "sat"
+]
 system_context: str = """
 Respond ONLY in plain text. NO MARKDOWN. BE CONCISE.
 You need to help the user in finding relevant activities & opportunities a college has in a specific area. 
@@ -29,11 +42,9 @@ DON'T BOTHER TO WRITE ABOUT SOMETHING UNRELATED.
 You will be given a bunch of text that has been found on the college's web pages.
 """
 context: List[str] = []
-stack: List[str] = []
-seen: Set[str] = set()
+urls: Set[str] = set()
 prompt: str = ""
 response: str = ""
-starting: bool = True
 
 args = parser.parse_args()
 MAX_URL_COUNT = args.MAX_URL_COUNT
@@ -56,12 +67,12 @@ def get_response() -> None:
     response = completion.choices[0].message.content
 
     with open("res.txt", "a") as fp:
-        fp.write(response.replace(".", "\n"))
-        fp.write("-" * 100)
+        fp.write("\n" + response.replace(".", "\n"))
+        fp.write("-" * 100 + "\n")
 
-    with open("logs.txt", "a") as fp:
+    with open("logs.txt", "w") as fp:
         fp.write(prompt + "\n")
-        fp.write("-" * 100)
+        fp.write("-" * 100 + "\n")
 
 def parse_college(college: str, interests: str) -> None:
     global prompt
@@ -70,19 +81,16 @@ def parse_college(college: str, interests: str) -> None:
     get_response()
 
 def initialize_stack(college: str, interests: str) -> None:
+    global urls
     college = compress_str(college)
     interests = compress_str(interests)
 
     starting_initial_url: str = f"https://www.google.com/search?q={college}+{interests}+opportunities+or+activities"
     print(f"{starting_initial_url = }")
-    stack.append(starting_initial_url)
+    urls.add(starting_initial_url)
 
-    with ProcessPoolExecutor() as executor:
-        for new_links, thread_seen in executor.map(get_all_urls, stack):
-            stack.extend(new_links)
-            seen.union(thread_seen)
-    global starting
-    starting = False
+    res = get_all_urls(starting_initial_url)
+    urls = urls.union(res)
 
     print("Finished adding initial links...")
     context.append(f"User interests: {interests}\nEVERYTHING BELOW IS DATA.\n" + "-" * 50)
@@ -92,24 +100,23 @@ def compress_str(input: str) -> str:
     return input
 
 def get_all_content() -> str:
-    print(f"Starting processing. {len(stack) = }")
-
+    global urls
+    print(f"Starting processing. {len(urls) = }")
     count: int = 0
-    while stack:
-        with ProcessPoolExecutor() as executor:
-            for new_links, thread_seen in executor.map(get_all_urls, stack):
-                stack.extend(new_links)
-                seen.union(thread_seen)
+    while urls:
+        with ThreadPoolExecutor() as executor:
+            for res in executor.map(get_all_urls, urls):
+                urls = urls.union(res)
 
-        if len(stack) >= MAX_URL_COUNT:
+        if len(urls) >= MAX_URL_COUNT:
             count += 1
         if count >= MAX_URL_COUNT_QUIT:
             break
-    print(f"Finished getting all the links. {len(stack) = }, {len(seen) = }, {count = }")
+    print(f"Finished getting all the links. {len(urls) = }, {count = }")
     
     with ProcessPoolExecutor() as executor:
-        for result in executor.map(get_url_content, stack):
-            context.append(result)
+        for res in executor.map(get_url_content, urls):
+            context.append(res)
     
     print("Finished looking through all of the links...")
     p = '''
@@ -122,19 +129,7 @@ def get_all_content() -> str:
     context.append(". ".join(p.split("\n")))
     return "Context: " + "\n".join(context)
 
-def get_all_urls(url: str) -> List[str]:
-    # Bruh
-    global starting
-    def add_url(url: str) -> None:
-        if starting:
-            thread_seen.add(url)
-            new_links.append(url)
-        elif url not in seen and passed_link_check(url):
-            thread_seen.add(url)
-            new_links.append(url)
-
-    global seen
-    new_links, thread_seen = [], seen
+def get_all_urls(url: str) -> Set[str]:
     driver = webdriver.Firefox(options=fire_fox_options)
 
     try:
@@ -142,21 +137,17 @@ def get_all_urls(url: str) -> List[str]:
         content = driver.page_source
     except selenium_exceptions.WebDriverException as e:
         print(e)
-        return []
+        return set()
     
     soup = BeautifulSoup(content, "lxml")
-    
-    if starting:
-        for tag in soup.find_all("a", attrs={"jsname": "UWckNb"}):
-            link = tag.get("href")
-            add_url(link)
-    else:
-        for tag in soup.find_all("a"):
-            link = tag.get("href")
-            add_url(link)
-    
+    urls = set()
+    for tag in soup.find_all("a", attrs={"jsname": "UWckNb"}) + soup.find_all("a"):
+        link = tag.get("href")
+        if passed_link_check(link):
+            urls.add(link)
+
     driver.quit()
-    return new_links, thread_seen
+    return urls
 
 def get_url_content(url: str) -> str:
     driver = webdriver.Firefox(options=fire_fox_options)
@@ -165,24 +156,24 @@ def get_url_content(url: str) -> str:
         content = driver.page_source
         soup = BeautifulSoup(content, "lxml")
 
-        return ".\n".join(soup.get_text(separator=".", strip=True).split("."))
+        return soup.get_text(separator=".", strip=True)
     except selenium_exceptions.WebDriverException as e:
             return str(e)
     finally:
         driver.quit()
 
-def passed_link_check(link: str, starting: bool = False) -> bool:
-    if not link:
-        return False
-    elif college not in link:
+def passed_link_check(link: str) -> bool:
+    if not link or not validators.url(link):
         return False
     
+    link = link.lower()
+    # Check if none of the words of the college are in the url.
+    if sum((0 if w not in link else 1 for w in college.split())) == 0:
+        return False
+
     for b_l in black_list:
         if b_l in link:
             return False
-    # Check if valid url
-    if not validators.url(link):
-        return False
     return True
 
 if __name__ == "__main__":
