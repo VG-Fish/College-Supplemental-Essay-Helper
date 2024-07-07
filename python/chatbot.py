@@ -11,7 +11,6 @@ import argparse, validators, time
 client: OpenAI = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 fire_fox_options = Options()
 fire_fox_options.add_argument("--headless")
-driver = webdriver.Firefox(options=fire_fox_options)
 
 parser = argparse.ArgumentParser(description="Enter your prompt.")
 parser.add_argument("college", help="Type in the college/university you are interested in.", type=str)
@@ -31,7 +30,12 @@ black_list: List[str] = [
     "mail", 
     "payment",
     "princetonreview",
-    "sat"
+    "sat",
+    "login",
+    "password",
+    "register",
+    "account",
+    "comments"
 ]
 system_context: str = """
 Respond ONLY in plain text. NO MARKDOWN. BE CONCISE.
@@ -105,15 +109,18 @@ def get_all_content() -> str:
     count: int = 0
 
     while urls:
+        # Just in case
+        if count >= MAX_URL_COUNT_QUIT or len(urls) >= MAX_URL_COUNT * 5:
+            break
+        print(f"\nNumber of urls to look through: {len(urls)}. Current {count = }")
         with ThreadPoolExecutor() as executor:
-            for res in executor.map(get_all_urls, urls):
+            for num, res in enumerate(executor.map(get_all_urls, urls)):
+                print(f"Adding thread-{num} content...")
                 urls = urls.union(res)
 
         if len(urls) >= MAX_URL_COUNT:
             count += 1
-        if count >= MAX_URL_COUNT_QUIT:
-            break
-    print(f"Finished getting all the links. {len(urls) = }, {count = }")
+    print(f"Finished getting all the links. Need to get content from {len(urls)} urls.")
     
     with ProcessPoolExecutor() as executor:
         for num, res in enumerate(executor.map(get_url_content, urls)):
@@ -133,10 +140,11 @@ def get_all_content() -> str:
 
 def get_all_urls(url: str) -> Set[str]:
     driver = webdriver.Firefox(options=fire_fox_options)
+    driver.set_page_load_timeout(2)
     try:
         driver.get(url)
         content = driver.page_source
-    except selenium_exceptions.WebDriverException as e:
+    except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
         print(e)
         return set()
     
