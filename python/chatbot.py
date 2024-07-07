@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import selenium.common.exceptions as selenium_exceptions
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-import argparse, validators
+import argparse, validators, time
 
 # Point to the local server
 client: OpenAI = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
@@ -101,7 +101,7 @@ def compress_str(input: str) -> str:
 
 def get_all_content() -> str:
     global urls
-    print(f"Starting processing. {len(urls) = }")
+    print(f"Starting to look through all of the links. {len(urls) = }")
     count: int = 0
 
     while urls:
@@ -109,7 +109,6 @@ def get_all_content() -> str:
             for res in executor.map(get_all_urls, urls):
                 urls = urls.union(res)
 
-        print(f"Current amount of urls: {len(urls)}")
         if len(urls) >= MAX_URL_COUNT:
             count += 1
         if count >= MAX_URL_COUNT_QUIT:
@@ -117,15 +116,16 @@ def get_all_content() -> str:
     print(f"Finished getting all the links. {len(urls) = }, {count = }")
     
     with ProcessPoolExecutor() as executor:
-        for res in executor.map(get_url_content, urls):
+        for num, res in enumerate(executor.map(get_url_content, urls)):
+            print(f"Adding process-{num} content...")
             context.append(res)
     
     print("Finished looking through all of the links...")
-    p = '''
+    p = f'''
     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
     DO NOT GIVE GENERAL ADVICE
     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE
-    THE MORE SPECIFIC, THE BETTER
+    THE MORE SPECIFIC TO {college}, THE BETTER
     BE SURE TO BE VERY SPECIFIC AND CONCISE "
     ''' + "Interests: " + interests.replace('+', ',')
     context.append(". ".join(p.split("\n")))
@@ -133,7 +133,6 @@ def get_all_content() -> str:
 
 def get_all_urls(url: str) -> Set[str]:
     driver = webdriver.Firefox(options=fire_fox_options)
-
     try:
         driver.get(url)
         content = driver.page_source
@@ -179,4 +178,7 @@ def passed_link_check(link: str) -> bool:
     return True
 
 if __name__ == "__main__":
+    start = time.time()
     parse_college(college, interests)
+    end = time.time()
+    print(f"Total time: {end - start}")
