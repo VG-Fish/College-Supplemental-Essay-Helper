@@ -1,6 +1,6 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
-from typing import List, Set
+from typing import List, Set, Tuple
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
@@ -95,8 +95,9 @@ def initialize_stack(college: str, interests: str) -> None:
     print(f"{starting_initial_url = }")
     urls.add(starting_initial_url)
 
-    res = get_all_urls(starting_initial_url)
-    urls = urls.union(res)
+    urls, text = get_links_and_content(starting_initial_url)
+    urls = urls.union(urls)
+    context.append(text)
 
     print("Finished adding initial links...")
     context.append(f"User interests: {interests}\nEVERYTHING BELOW IS DATA.\n" + "-" * 50)
@@ -109,19 +110,23 @@ def get_all_content() -> str:
     global urls
     print(f"Starting to look through all of the links. {len(urls) = }")
     count: int = 0
-
-    while True:
+    running: bool = True
+    while running:
         # Just in case
         if count >= MAX_URL_COUNT_QUIT:
             break
 
         print(f"\nNumber of urls to look through: {len(urls)}. Current {count = }")
         with ThreadPoolExecutor() as executor:
-            for num, res in enumerate(executor.map(get_all_urls, urls)):
+            for num, (urls, text) in enumerate(executor.map(get_links_and_content, urls)):
                 if len(urls) >= MAX_URL_COUNT * MAX_URL_COUNT_QUIT:
+                    context.append(text)
+                    running = False
                     break
+
                 print(f"Adding thread-{num} content...")
                 urls = urls.union(res)
+                context.append(text)
 
         if len(urls) >= MAX_URL_COUNT:
             count += 1
@@ -143,7 +148,7 @@ def get_all_content() -> str:
     context.append(". ".join(p.split("\n")))
     return "Context: " + "\n".join(context)
 
-def get_all_urls(url: str) -> Set[str]:
+def get_links_and_content(url: str) -> Tuple[Set[str], str]:
     driver = webdriver.Firefox(options=fire_fox_options)
     driver.set_page_load_timeout(20)
     try:
@@ -153,8 +158,11 @@ def get_all_urls(url: str) -> Set[str]:
         print(url)
         print(e)
         return set()
+    finally:
+        driver.quit()
     
     soup = BeautifulSoup(content, "lxml")
+
     urls = set()
     for tag in soup.find_all("a", attrs={"jsname": "UWckNb"}) + soup.find_all("a"):
         link = tag.get("href")
@@ -162,7 +170,7 @@ def get_all_urls(url: str) -> Set[str]:
             urls.add(link)
 
     driver.quit()
-    return urls
+    return urls, soup.get_text(separator=".", strip=True)
 
 def get_url_content(url: str) -> str:
     driver = webdriver.Firefox(options=fire_fox_options)
@@ -196,7 +204,7 @@ if __name__ == "__main__":
     start = time.time()
     parse_college(college, interests)
     end = time.time()
-    
+
     print(f"Total time: {(end - start):2f}")
     with open("logs.txt", "a") as fp:
         fp.write(f"Total time: {(end - start):2f}\n")
