@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from typing import List, Set 
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+import selenium.common.exceptions as selenium_exceptions
 import argparse, validators
 
 # Point to the local server
@@ -80,8 +81,12 @@ def get_all_content(college: str, interests: str) -> str:
         curr_url: str = stack.pop()
         print(curr_url, len(stack), count)
 
-        driver.get(curr_url)
-        content = driver.page_source
+        try:
+            driver.get(curr_url)
+            content = driver.page_source
+        except selenium_exceptions.WebDriverException as e:
+            print(e)
+            continue
 
         soup = BeautifulSoup(content, "lxml")
         context.append(".\n".join(soup.get_text(separator=".", strip=True).split(".")))
