@@ -4,7 +4,7 @@ from typing import List, Set
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import selenium.common.exceptions as selenium_exceptions
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 import argparse, validators
 
 # Point to the local server
@@ -45,6 +45,7 @@ interests = args.interests
 
 def get_response() -> None:
     print("Starting model inference...")
+
     completion = client.chat.completions.create(
         model="RichardErkhov/fblgit_-_una-cybertron-7b-v1-fp16-gguf",
         messages=[
@@ -104,11 +105,12 @@ def get_all_content() -> str:
             count += 1
         if count >= MAX_URL_COUNT_QUIT:
             break
-    print(f"Finished getting all links.{len(stack) = }, {len(seen) = }, {count = }")
+    print(f"Finished getting all the links. {len(stack) = }, {len(seen) = }, {count = }")
     
-    with ThreadPoolExecutor() as executor:
+    with ProcessPoolExecutor() as executor:
         for result in executor.map(get_url_content, stack):
             context.append(result)
+    
     print("Finished looking through all of the links...")
     p = '''
     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
@@ -152,7 +154,8 @@ def get_all_urls(url: str) -> List[str]:
         for tag in soup.find_all("a"):
             link = tag.get("href")
             add_url(link)
-
+    
+    driver.quit()
     return new_links, thread_seen
 
 def get_url_content(url: str) -> str:
