@@ -43,8 +43,6 @@ college: str = args.college.lower()
 interests = args.interests
 
 def get_response() -> None:
-    print(prompt)
-    print("Generated Response:\n")
     completion = client.chat.completions.create(
         model="RichardErkhov/fblgit_-_una-cybertron-7b-v1-fp16-gguf",
         messages=[
@@ -53,7 +51,9 @@ def get_response() -> None:
         ]
     )
     response = completion.choices[0].message.content
-    print(response)
+    
+    with open("res.txt", "a") as fp:
+        fp.write(response)
 
 def parse_college(college: str, interests: str) -> None:
     global prompt
