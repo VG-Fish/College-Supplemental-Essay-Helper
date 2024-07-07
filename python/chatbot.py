@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from typing import List, Set
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import selenium.common.exceptions as selenium_exceptions
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 import argparse, validators, time
 
 # Point to the local server
@@ -179,7 +179,7 @@ def passed_link_check(link: str) -> bool:
     
     link = link.lower()
     # Check if none of the words of the college are in the url.
-    if sum((0 if w not in link else 1 for w in college.split())) == 0:
+    if sum((0 if word not in link else 1 for word in college.split())) == 0:
         return False
 
     for b_l in black_list:
@@ -191,4 +191,4 @@ if __name__ == "__main__":
     start = time.time()
     parse_college(college, interests)
     end = time.time()
-    print(f"Total time: {end - start}")
+    print(f"Total time: {(end - start):2f}")
