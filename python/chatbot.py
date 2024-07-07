@@ -59,6 +59,11 @@ college: str = args.college.lower()
 interests = args.interests
 
 def get_response() -> None:
+    print("Logging data...")
+    with open("logs.txt", "w") as fp:
+        fp.write(prompt + "\n")
+        fp.write("-" * 100 + "\n")
+    
     print("Starting model inference...")
 
     completion = client.chat.completions.create(
@@ -73,10 +78,7 @@ def get_response() -> None:
     with open("res.txt", "a") as fp:
         fp.write("\n" + response.replace(".", "\n"))
         fp.write("-" * 100 + "\n")
-
-    with open("logs.txt", "w") as fp:
-        fp.write(prompt + "\n")
-        fp.write("-" * 100 + "\n")
+    print("Logging response...\nFinished.")
 
 def parse_college(college: str, interests: str) -> None:
     global prompt
@@ -110,18 +112,20 @@ def get_all_content() -> str:
 
     while True:
         # Just in case
-        if count >= MAX_URL_COUNT_QUIT or len(urls) >= MAX_URL_COUNT * 5:
+        if count >= MAX_URL_COUNT_QUIT:
             break
 
         print(f"\nNumber of urls to look through: {len(urls)}. Current {count = }")
         with ThreadPoolExecutor() as executor:
             for num, res in enumerate(executor.map(get_all_urls, urls)):
+                if len(urls) >= MAX_URL_COUNT * MAX_URL_COUNT_QUIT:
+                    break
                 print(f"Adding thread-{num} content...")
                 urls = urls.union(res)
 
         if len(urls) >= MAX_URL_COUNT:
             count += 1
-    print(f"Finished getting all the links. Need to get content from {len(urls)} urls.")
+    print(f"Finished getting all the links. Need to get content from {len(urls)} urls.\n")
     
     with ProcessPoolExecutor() as executor:
         for num, res in enumerate(executor.map(get_url_content, urls)):
@@ -162,13 +166,14 @@ def get_all_urls(url: str) -> Set[str]:
 
 def get_url_content(url: str) -> str:
     driver = webdriver.Firefox(options=fire_fox_options)
+    driver.set_page_load_timeout(20)
     try:
         driver.get(url)
         content = driver.page_source
         soup = BeautifulSoup(content, "lxml")
 
         return soup.get_text(separator=".", strip=True)
-    except selenium_exceptions.WebDriverException as e:
+    except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
             return str(e)
     finally:
         driver.quit()
