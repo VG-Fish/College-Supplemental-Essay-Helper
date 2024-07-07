@@ -19,7 +19,7 @@ parser.add_argument("interests", help="Type some of your interests in one string
 parser.add_argument("MAX_URL_COUNT", help="Max amount of urls in the stack.", default=100, type=int)
 parser.add_argument("MAX_URL_COUNT_QUIT", help="Max amount of times the stack can have max amount of urls before stopping.", default=10, type=int)
 
-black_list: List[str] = ["youtube", "youtu.be", "facebook", "threads", "google", "calendar"]
+black_list: List[str] = ["youtube", "youtu.be", "facebook", "threads", "google", "calendar", "mail"]
 system_context: str = """
 Respond ONLY in plain text. NO MARKDOWN. BE CONCISE.
 You need to help the user in finding relevant activities & opportunities a college has in a specific area. 
@@ -44,6 +44,7 @@ interests = args.interests
 
 def get_response() -> None:
     print(prompt)
+    return
     print("Generated Response:\n")
     completion = client.chat.completions.create(
         model="RichardErkhov/fblgit_-_una-cybertron-7b-v1-fp16-gguf",
@@ -74,6 +75,7 @@ def initialize_stack(college: str, interests: str) -> None:
     initial_url = soup.find("a", attrs={"jsname": "UWckNb"}).get("href")
     stack.append(initial_url)
     seen.add(initial_url)
+    driver.quit()
 
 def get_all_content() -> str:
     count: int = 0
@@ -87,7 +89,10 @@ def get_all_content() -> str:
         if count >= MAX_URL_COUNT_QUIT:
             break
     
-    driver.quit()
+    with ThreadPoolExecutor() as executor:
+        for result in executor.map(get_url_content, stack):
+            context.append(result)
+    print(context)
     p = '''
     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
     USE THE DATA ABOVE TO FIND SPECIFIC THINGS I CAN USE
@@ -97,6 +102,10 @@ def get_all_content() -> str:
     return "Context: " + "\n".join(context)
 
 def get_all_urls(url: str) -> List[str]:
+    global seen
+    res = []
+    driver = webdriver.Firefox(options=fire_fox_options)
+
     try:
         driver.get(url)
         content = driver.page_source
@@ -105,7 +114,25 @@ def get_all_urls(url: str) -> List[str]:
         return []
     
     soup = BeautifulSoup(content, "lxml")
-    return [tags.get("href") for tags in soup.find_all("a")]
+    for tag in soup.find_all("a"):
+        link = tag.get("href")
+        if link not in seen and passed_link_check(link):
+            seen.add(link)
+            res.append(link)
+    return res
+
+def get_url_content(url: str) -> str:
+    driver = webdriver.Firefox(options=fire_fox_options)
+    try:
+        driver.get(url)
+        content = driver.page_source
+        soup = BeautifulSoup(content, "lxml")
+
+        return ".\n".join(soup.get_text(separator=".", strip=True).split("."))
+    except selenium_exceptions.WebDriverException as e:
+            return str(e)
+    finally:
+        driver.quit()
 
 def passed_link_check(link: str) -> bool:
     if not link:
