@@ -98,6 +98,7 @@ def get_all_content(college: str, interests: str) -> str:
         count_incremented = False
     
     driver.quit()
+    context.append("PROMPT: FIND ME OPPORTUNITIES OR ACTIVITIES IN THE DATA GIVEN ABOVE THAT I CAN WRITE ABOUT IN COLLEGE ADMISSIONS. BE SURE TO BE SPECIFIC. {}".format(interests.replace('+', ',')))
     return "Context: " + "\n".join(context)
 
 def passed_link_check(link: str) -> bool:

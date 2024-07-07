@@ -1,6 +1,4 @@
-['https://gocrimson.com/sports/2020/5/5/information-employment-index.aspx']
 https://gocrimson.com/sports/2020/5/5/information-employment-index.aspx 0 0
-['https://portal.stretchinternet.com/harvard/']
 https://portal.stretchinternet.com/harvard/ 0 1
 Context: User interests: tennis+soccer
 EVERYTHING BELOW IS DATA.
@@ -1974,3 +1972,7 @@ LOADING.
 .
 .
 
+PROMPT: FIND ME SOMETHING IN THE DATA SUPPLIED THAT IS RELATED TO: tennis,soccer
+Generated Response:
+
+In the provided schedule of events and broadcasts, there are multiple instances where tennis and soccer matches are being broadcasted. For example, under the "ITA Regional Championships" section for men's and women's tennis, there are listed dates with various tennis court numbers where games are to be aired. Similarly, in the listings of sports events, Harvard Men's Soccer and Harvard Women's Soccer both have scheduled matches throughout the season. These events include matches against teams such as Stonehill, Columbia, Princeton, Dartmouth, and Yale, among others. The information highlights the occurrences of live broadcasts for tennis and soccer at Harvard University.
