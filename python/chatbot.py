@@ -44,7 +44,6 @@ interests = args.interests
 
 def get_response() -> None:
     print(prompt)
-    return
     print("Generated Response:\n")
     completion = client.chat.completions.create(
         model="RichardErkhov/fblgit_-_una-cybertron-7b-v1-fp16-gguf",
@@ -92,7 +91,6 @@ def get_all_content() -> str:
     with ThreadPoolExecutor() as executor:
         for result in executor.map(get_url_content, stack):
             context.append(result)
-    print(context)
     p = '''
     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
     USE THE DATA ABOVE TO FIND SPECIFIC THINGS I CAN USE
