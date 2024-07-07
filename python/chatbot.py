@@ -103,11 +103,13 @@ def get_all_content() -> str:
     global urls
     print(f"Starting processing. {len(urls) = }")
     count: int = 0
+
     while urls:
         with ThreadPoolExecutor() as executor:
             for res in executor.map(get_all_urls, urls):
                 urls = urls.union(res)
 
+        print(f"Current amount of urls: {len(urls)}")
         if len(urls) >= MAX_URL_COUNT:
             count += 1
         if count >= MAX_URL_COUNT_QUIT:
