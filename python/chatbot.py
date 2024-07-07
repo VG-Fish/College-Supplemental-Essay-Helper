@@ -14,6 +14,12 @@ parser.add_argument("MAX_URL_COUNT", help="Max amount of urls in the stack.", de
 parser.add_argument("MAX_URL_COUNT_QUIT", help="Max amount of times the stack can have max amount of urls before stopping.", default=10, type=int)
 
 black_list: List[str] = ["youtube", "youtu.be", "facebook", "threads", "google", "calendar"]
+system_context: str = """
+Respond ONLY in plain text. 
+You need to help the user in finding relevant activities & opportunities a college has in a specific area. 
+Make sure to pay attention to specific attention to 'User interests: ...' at the bottom of the prompts and tailor your response to the interests.
+ You will be given a bunch of text that has been found on the college's web pages.
+"""
 prompt: str = ""
 response: str = ""
 
@@ -32,7 +38,7 @@ def get_response() -> None:
     completion = client.chat.completions.create(
         model="LM Studio Community/Phi-3-mini-4k-instruct-GGUF",
         messages=[
-        {"role": "system", "content": "Respond ONLY in plain text. You need to help the user in finding relevant activities & opportunities a college has in a specific area. You will be given a bunch of text that has been found on the college's web pages."},
+        {"role": "system", "content": system_context},
         {"role": "user", "content": prompt}
         ],
         temperature=0.7,
