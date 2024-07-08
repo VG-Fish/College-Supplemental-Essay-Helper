@@ -1,22 +1,18 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
 from typing import List, Set
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import selenium.common.exceptions as selenium_exceptions
-import argparse, validators, time
+from arsenic import get_session
+from arsenic.browsers import Firefox
+from arsenic.services import Geckodriver
+import argparse, validators, time, asyncio, os
 
 # Point to the local server
 client: OpenAI = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
-fire_fox_options = Options()
-fire_fox_options.add_argument("--headless")
 
 parser = argparse.ArgumentParser(description="Enter your prompt.")
 parser.add_argument("college", help="Type in the college/university you are interested in.", type=str)
 parser.add_argument("interests", help="Type some of your interests in one string and separate interests by spaces.", type=str)
-parser.add_argument("MAX_URL_COUNT", help="Max amount of urls in the stack.", default=100, type=int)
-parser.add_argument("MAX_URL_COUNT_QUIT", help="Max amount of times the stack can have max amount of urls before stopping.", default=10, type=int)
+parser.add_argument("iterations", help="Amount of times you want urls to get added before all urls are searched.", choices=range(1, 10), default=3, type=int)
 
 black_list: List[str] = [
     "youtube", 
@@ -49,18 +45,17 @@ context: List[str] = []
 urls: Set[str] = set()
 prompt: str = ""
 response: str = ""
+TIME_TILL_QUIT = 10
 
 args = parser.parse_args()
-MAX_URL_COUNT = args.MAX_URL_COUNT
-# Max amount of times the stack can have max amount of urls before stopping.
-MAX_URL_COUNT_QUIT = args.MAX_URL_COUNT_QUIT
 
 college: str = args.college.lower()
 interests = args.interests
+iterations = args.iterations
 
 def get_response() -> None:
     print("Logging data...")
-    with open("logs.txt", "w") as fp:
+    with open("texts/prompt.txt", "w") as fp:
         fp.write(prompt + "\n")
         fp.write("-" * 100 + "\n")
     
@@ -75,7 +70,7 @@ def get_response() -> None:
     )
     response = completion.choices[0].message.content
 
-    with open("res.txt", "a") as fp:
+    with open("texts/res.txt", "w") as fp:
         fp.write("\n" + response.replace(".", "\n"))
         fp.write("-" * 100 + "\n")
     print("Logging response...\nFinished.")
@@ -83,7 +78,7 @@ def get_response() -> None:
 def parse_college(college: str, interests: str) -> None:
     global prompt
     initialize_stack(college, interests)
-    prompt = get_all_content()
+    prompt = asyncio.run(get_all_content())
     get_response()
 
 def initialize_stack(college: str, interests: str) -> None:
@@ -95,9 +90,6 @@ def initialize_stack(college: str, interests: str) -> None:
     print(f"{starting_initial_url = }")
     urls.add(starting_initial_url)
 
-    res = get_all_urls(starting_initial_url)
-    urls = urls.union(res)
-
     print("Finished adding initial links...")
     context.append(f"User interests: {interests}\nEVERYTHING BELOW IS DATA.\n" + "-" * 50)
 
@@ -105,34 +97,17 @@ def compress_str(input: str) -> str:
     input = '+'.join(input.split())
     return input
 
-def get_all_content() -> str:
+async def get_all_content() -> str:
     global urls
     print(f"Starting to look through all of the links. {len(urls) = }")
-    count: int = 0
 
-    while True:
-        # Just in case
-        if count >= MAX_URL_COUNT_QUIT:
-            break
+    # To make sure we went through enough webpages
+    for _ in range(iterations):
+        tasks = [asyncio.create_task(get_links_and_content(url)) for url in urls]
+        _ = await asyncio.gather(*tasks)
 
-        print(f"\nNumber of urls to look through: {len(urls)}. Current {count = }")
-        with ThreadPoolExecutor() as executor:
-            for num, res in enumerate(executor.map(get_all_urls, urls)):
-                if len(urls) >= MAX_URL_COUNT * MAX_URL_COUNT_QUIT:
-                    break
-                print(f"Adding thread-{num} content...")
-                urls = urls.union(res)
-
-        if len(urls) >= MAX_URL_COUNT:
-            count += 1
-    print(f"Finished getting all the links. Need to get content from {len(urls)} urls.\n")
-    
-    with ProcessPoolExecutor() as executor:
-        for num, res in enumerate(executor.map(get_url_content, urls)):
-            print(f"Adding process-{num} content...")
-            context.append(res)
-    
     print("Finished looking through all of the links...")
+
     p = f'''
     "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
     DO NOT GIVE GENERAL ADVICE
@@ -143,40 +118,32 @@ def get_all_content() -> str:
     context.append(". ".join(p.split("\n")))
     return "Context: " + "\n".join(context)
 
-def get_all_urls(url: str) -> Set[str]:
-    driver = webdriver.Firefox(options=fire_fox_options)
-    driver.set_page_load_timeout(20)
+async def get_links_and_content(init_url: str):
+    global urls, context
+    urls.remove(init_url)
+    print(f"Amount of urls to crawl: {len(urls) = }")
+    prev = len(urls)
+    driver = Geckodriver(log_file=os.path.devnull)
+    browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless'], 'log': {'level': 'fatal'}}})
     try:
-        driver.get(url)
-        content = driver.page_source
-    except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
-        print(url)
-        print(e)
-        return set()
-    
-    soup = BeautifulSoup(content, "lxml")
-    urls = set()
-    for tag in soup.find_all("a", attrs={"jsname": "UWckNb"}) + soup.find_all("a"):
-        link = tag.get("href")
-        if passed_link_check(link):
-            urls.add(link)
+        async with get_session(driver, browser) as session:
+            await session.get(init_url)
+            # Wait for page load
+            await session.wait_for_element(2, 'body')
 
-    driver.quit()
-    return urls
-
-def get_url_content(url: str) -> str:
-    driver = webdriver.Firefox(options=fire_fox_options)
-    driver.set_page_load_timeout(20)
-    try:
-        driver.get(url)
-        content = driver.page_source
-        soup = BeautifulSoup(content, "lxml")
-
-        return soup.get_text(separator=".", strip=True)
-    except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
-            return str(e)
-    finally:
-        driver.quit()
+            page_source = await session.get_page_source()
+            soup = BeautifulSoup(page_source, "lxml")
+            text = "\n".join(soup.get_text(".", True).split("."))
+            
+            tags = await session.get_elements('a')
+            for tag in tags:
+                link = await tag.get_attribute('href')
+                if passed_link_check(link):
+                    urls.add(link)
+        context.append(text)
+    except asyncio.TimeoutError as e:
+        print(f"ERROR! {e}")
+        return
 
 def passed_link_check(link: str) -> bool:
     if not link or not validators.url(link):
