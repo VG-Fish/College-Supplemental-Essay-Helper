@@ -4,6 +4,7 @@ from arsenic import get_session
 from typing import List, Set, Tuple
 from arsenic.browsers import Firefox
 from arsenic.services import Geckodriver
+from arsenic.errors import StaleElementReference
 from asyncio import TimeoutError
 import argparse, validators, time, asyncio, os
 
@@ -112,15 +113,18 @@ async def get_all_content() -> str:
             urls = urls.union(u)
         # Remove old urls
         urls = urls.difference(old_urls)
+        print(f"CURRENT LINKS:\n")
+        print(*urls, sep="\n")
 
     print("Finished looking through all of the links...")
 
     p = f'''
-    "PROMPT: I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
+    I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
     DO NOT GIVE GENERAL ADVICE
     USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE
-    THE MORE SPECIFIC TO {college}, THE BETTER
-    BE SURE TO BE VERY SPECIFIC AND CONCISE "
+    FOR EXAMPLE, CITE OPPORTUNITIES OR ACTIVITIES THAT ARE RELEVANT TO {interests} THAT IS OFFERED {college} THAT CAN BE DONE BY A HIGHSCHOOLER
+    BASICALLY, CITE THINGS THAT{college} LIKES TO SEE
+    BE SURE TO BE VERY SPECIFIC AND CONCISE
     ''' + "Interests: " + interests.replace('+', ',')
     context.append(". ".join(p.split("\n")))
     return "Context: " + "\n".join(context)
@@ -147,7 +151,7 @@ async def get_links_and_content(init_url: str) -> Tuple[List[str], Set[str]]:
                     urls.add(link)
         context.append(text)
         return context, urls
-    except TimeoutError as e:
+    except (TimeoutError, StaleElementReference) as e:
         print(f"ERROR! {e}")
         return [], set()
 
