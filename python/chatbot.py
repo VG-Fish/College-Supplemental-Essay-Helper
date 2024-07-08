@@ -1,7 +1,7 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
 from arsenic import get_session
-from typing import List, Set
+from typing import List, Set, Tuple
 from arsenic.browsers import Firefox
 from arsenic.services import Geckodriver
 from asyncio import TimeoutError
@@ -71,7 +71,7 @@ def get_response() -> None:
     )
     response = completion.choices[0].message.content
 
-    with open("texts/res.txt", "w") as fp:
+    with open("texts/result.txt", "w") as fp:
         fp.write("\n" + response.replace(".", "\n"))
         fp.write("-" * 100 + "\n")
     print("Logging response...\nFinished.")
@@ -102,10 +102,16 @@ async def get_all_content() -> str:
     global urls
     print(f"Starting to look through all of the links. {len(urls) = }")
 
-    # To make sure we went through enough webpages
     for _ in range(iterations):
         tasks = [asyncio.create_task(get_links_and_content(url)) for url in urls]
-        _ = await asyncio.gather(*tasks)
+        results = await asyncio.gather(*tasks)
+
+        old_urls = set(urls)
+        for c, u in results:
+            context.extend(c)
+            urls = urls.union(u)
+        # Remove old urls
+        urls = urls.difference(old_urls)
 
     print("Finished looking through all of the links...")
 
@@ -119,9 +125,8 @@ async def get_all_content() -> str:
     context.append(". ".join(p.split("\n")))
     return "Context: " + "\n".join(context)
 
-async def get_links_and_content(init_url: str):
-    global urls, context
-    urls.remove(init_url)
+async def get_links_and_content(init_url: str) -> Tuple[List[str], Set[str]]:
+    context, urls = [], set()
     driver = Geckodriver(log_file=os.path.devnull)
     browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless']}})
 
@@ -141,8 +146,10 @@ async def get_links_and_content(init_url: str):
                 if passed_link_check(link):
                     urls.add(link)
         context.append(text)
+        return context, urls
     except TimeoutError as e:
         print(f"ERROR! {e}")
+        return [], set()
 
 def passed_link_check(link: str) -> bool:
     if not link or not validators.url(link):
