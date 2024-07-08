@@ -1,9 +1,10 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
-from typing import List, Set
 from arsenic import get_session
+from typing import List, Set
 from arsenic.browsers import Firefox
 from arsenic.services import Geckodriver
+from asyncio import TimeoutError
 import argparse, validators, time, asyncio, os
 
 # Point to the local server
@@ -121,39 +122,27 @@ async def get_all_content() -> str:
 async def get_links_and_content(init_url: str):
     global urls, context
     urls.remove(init_url)
-    print(f"Amount of urls to crawl: {len(urls) = }")
-    prev = len(urls)
     driver = Geckodriver(log_file=os.path.devnull)
-    browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless'], 'log': {'level': 'fatal'}}})
-    async with get_session(driver, browser) as session:
-        await session.get(init_url)
-        # Wait for page load
-        await session.wait_for_element(2, 'body')
+    browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless']}})
 
-        page_source = await session.get_page_source()
-        soup = BeautifulSoup(page_source, "lxml")
-        text = "\n".join(soup.get_text(".", True).split("."))
-        
-        tags = await session.get_elements('a')
-        for tag in tags:
-            link = await tag.get_attribute('href')
-            if passed_link_check(link):
-                urls.add(link)
-    context.append(text)
-
-def get_url_content(url: str) -> str:
-    driver = webdriver.Firefox(options=fire_fox_options)
-    driver.set_page_load_timeout(20)
     try:
-        driver.get(url)
-        content = driver.page_source
-        soup = BeautifulSoup(content, "lxml")
+        async with get_session(driver, browser) as session:
+            await session.get(init_url)
+            # Wait for page load
+            await session.wait_for_element(2, 'body')
 
-        return soup.get_text(separator=".", strip=True)
-    except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
-            return str(e)
-    finally:
-        driver.quit()
+            page_source = await session.get_page_source()
+            soup = BeautifulSoup(page_source, "lxml")
+            text = "\n".join(soup.get_text(".", True).split("."))
+            
+            tags = await session.get_elements('a')
+            for tag in tags:
+                link = await tag.get_attribute('href')
+                if passed_link_check(link):
+                    urls.add(link)
+        context.append(text)
+    except TimeoutError as e:
+        print(f"ERROR! {e}")
 
 def passed_link_check(link: str) -> bool:
     if not link or not validators.url(link):
