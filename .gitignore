@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
-output.txt
+texts/logs.txt
+texts/prompt.txt
+texts/result.txt
