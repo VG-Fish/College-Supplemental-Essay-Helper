@@ -141,6 +141,20 @@ async def get_links_and_content(init_url: str):
                 urls.add(link)
     context.append(text)
 
+def get_url_content(url: str) -> str:
+    driver = webdriver.Firefox(options=fire_fox_options)
+    driver.set_page_load_timeout(20)
+    try:
+        driver.get(url)
+        content = driver.page_source
+        soup = BeautifulSoup(content, "lxml")
+
+        return soup.get_text(separator=".", strip=True)
+    except (selenium_exceptions.WebDriverException, selenium_exceptions.TimeoutException) as e:
+            return str(e)
+    finally:
+        driver.quit()
+
 def passed_link_check(link: str) -> bool:
     if not link or not validators.url(link):
         return False
