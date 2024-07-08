@@ -125,25 +125,21 @@ async def get_links_and_content(init_url: str):
     prev = len(urls)
     driver = Geckodriver(log_file=os.path.devnull)
     browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless'], 'log': {'level': 'fatal'}}})
-    try:
-        async with get_session(driver, browser) as session:
-            await session.get(init_url)
-            # Wait for page load
-            await session.wait_for_element(2, 'body')
+    async with get_session(driver, browser) as session:
+        await session.get(init_url)
+        # Wait for page load
+        await session.wait_for_element(2, 'body')
 
-            page_source = await session.get_page_source()
-            soup = BeautifulSoup(page_source, "lxml")
-            text = "\n".join(soup.get_text(".", True).split("."))
-            
-            tags = await session.get_elements('a')
-            for tag in tags:
-                link = await tag.get_attribute('href')
-                if passed_link_check(link):
-                    urls.add(link)
-        context.append(text)
-    except asyncio.TimeoutError as e:
-        print(f"ERROR! {e}")
-        return
+        page_source = await session.get_page_source()
+        soup = BeautifulSoup(page_source, "lxml")
+        text = "\n".join(soup.get_text(".", True).split("."))
+        
+        tags = await session.get_elements('a')
+        for tag in tags:
+            link = await tag.get_attribute('href')
+            if passed_link_check(link):
+                urls.add(link)
+    context.append(text)
 
 def passed_link_check(link: str) -> bool:
     if not link or not validators.url(link):
