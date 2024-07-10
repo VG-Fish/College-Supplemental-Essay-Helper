@@ -1,22 +1,10 @@
-import aiohttp, asyncio, validators
+import aiohttp, asyncio, validators, time
 from bs4 import BeautifulSoup
 from concurrent.futures import ProcessPoolExecutor
 
 college = "mit"
 context = []
-urls = {
-    "https://www.media.mit.edu/research/?filter=everything&tag=mechatronics",
-    "https://www.manipal.edu/mit/department-faculty/department-list/Copy%20of%20mechatronics.html",
-    "https://www.manipal.edu/mit/department-faculty/department-list/mechatronics.html",
-    "https://www.quora.com/Why-doesnt-MIT-offer-a-degree-in-machatronics?top_ans=97468990",
-    "https://meche.mit.edu/about",
-    "https://catalog.mit.edu/mit/campus-life/activities/",
-    "https://mechatronics.mit.edu/",
-    "https://mechatronics.mit.edu/projects/",
-    "https://www.media.mit.edu/projects/dynamic-interfaces/overview/",
-    "https://www.google.com/advanced_search?q=mit+mechatronics+opportunities+or+activities",
-    "https://meche.mit.edu/featured-classes/mechatronics",
-}
+urls = {}
 black_list = [
     "youtube", 
     "youtu.be", 
@@ -89,7 +77,16 @@ async def get_all_content():
             urls.update(result[0])
             context.append(result[1])
 
-if __name__ == "__main__":
+async def main():
+    start = time.perf_counter()
     asyncio.run(get_all_content())
-    print(*urls, sep="\n")
-    print(len(urls))
+    end = time.perf_counter()
+    with open("texts/time.txt", "w") as fp:
+        fp.write(f"{end - start:2f}")
+    
+    with open("texts/log.txt", "w") as fp:
+        fp.write(f"{urls}\n")
+        fp.write(len(urls))
+
+if __name__ == "__main__":
+    main()
