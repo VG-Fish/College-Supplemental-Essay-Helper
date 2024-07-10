@@ -1,12 +1,7 @@
 from openai import OpenAI
 from bs4 import BeautifulSoup
-from arsenic import get_session
 from typing import List, Set, Tuple
-from arsenic.browsers import Firefox
-from arsenic.services import Geckodriver
-from arsenic.errors import StaleElementReference
-from asyncio import TimeoutError
-import argparse, validators, time, asyncio, os
+import argparse, validators, time, asyncio, aiohttp
 
 # Point to the local server
 client: OpenAI = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
@@ -14,7 +9,7 @@ client: OpenAI = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio"
 parser = argparse.ArgumentParser(description="Enter your prompt.")
 parser.add_argument("college", help="Type in the college/university you are interested in.", type=str)
 parser.add_argument("interests", help="Type some of your interests in one string and separate interests by spaces.", type=str)
-parser.add_argument("iterations", help="Amount of times you want urls to get added before all urls are searched.", choices=range(1, 10), default=3, type=int)
+parser.add_argument("iterations", help="Amount of times you want urls to get added before all urls are searched.", choices=range(1, 10), default=2, type=int)
 
 black_list: List[str] = [
     "youtube", 
@@ -35,22 +30,19 @@ black_list: List[str] = [
     "account",
     "comments"
 ]
+
 system_context: str = """
 Respond ONLY in plain text. NO MARKDOWN. BE CONCISE.
 You need to help the user in finding relevant activities & opportunities a college has in a specific area. 
-Make sure to pay attention to specific attention to 'User interests: ...' at the bottom of the prompts and tailor your response to the interests listed.
-If the dad is unrelated to the user interests, respond back with 'Unable to help you with the task.'
 DON'T BOTHER TO WRITE ABOUT SOMETHING UNRELATED.
-You will be given a bunch of text that has been found on the college's web pages.
+You will be given a bunch of text that may contain irrelevant information.
 """
 context: List[str] = []
 urls: Set[str] = set()
 prompt: str = ""
 response: str = ""
-TIME_TILL_QUIT = 10
 
 args = parser.parse_args()
-
 college: str = args.college.lower()
 interests = args.interests
 iterations = args.iterations
@@ -102,58 +94,36 @@ def compress_str(input: str) -> str:
 async def get_all_content() -> str:
     global urls
     print(f"Starting to look through all of the links. {len(urls) = }")
+    # Remove old urls
+    #urls = urls.difference(old_urls)
+    print(f"CURRENT LINKS ({len(urls) = }):\n")
+    print(*urls, sep="\n")
+    end = time.perf_counter()
 
-    for _ in range(iterations):
-        tasks = [asyncio.create_task(get_links_and_content(url)) for url in urls]
-        results = await asyncio.gather(*tasks)
-
-        old_urls = set(urls)
-        for c, u in results:
-            context.extend(c)
-            urls = urls.union(u)
-        # Remove old urls
-        urls = urls.difference(old_urls)
-        print(f"CURRENT LINKS:\n")
-        print(*urls, sep="\n")
-
+    with open("texts/time.txt", "a") as fp:
+        fp.write(f"Crawling time: {(end - start):2f}\n")
     print("Finished looking through all of the links...")
 
     p = f'''
     I AM A HIGHSCHOOL STUDENT WHO WANTS TO OPPORTUNITIES OR ACTIVITIES RELEVANT TO COLLEGE ADMISSIONS ESSAYS
     DO NOT GIVE GENERAL ADVICE
-    USE THE DATA ABOVE TO FIND VERY VERY SPECIFIC THINGS I CAN USE
-    FOR EXAMPLE, CITE OPPORTUNITIES OR ACTIVITIES THAT ARE RELEVANT TO {interests} THAT IS OFFERED {college} THAT CAN BE DONE BY A HIGHSCHOOLER
-    BASICALLY, CITE THINGS THAT{college} LIKES TO SEE
-    BE SURE TO BE VERY SPECIFIC AND CONCISE
+    FOR EXAMPLE, CITE OPPORTUNITIES OR ACTIVITIES THAT ARE RELEVANT TO {interests} THAT IS OFFERED by {college} THAT CAN BE DONE BY A HIGHSCHOOLER
+    MAKE SURE THE OPPORTUNITIES OR ACTIVITIES ARE UNIQUE TO {college}
+    TRY TO CITE AT-LEAST 7 OPPORTUNITIES OR ACTIVITIES
+    MAKE SURE THE OPPORTUNITIES OR ACTIVITIES CAN BE DONE IN PERSON OR VIRTUALLY BY THE INTERNET
+    BE SURE TO BE VERY SPECIFIC AND CONCISE AND THAT THEY CAN BE DONE BY A HIGHSCHOOLER
     ''' + "Interests: " + interests.replace('+', ',')
     context.append(". ".join(p.split("\n")))
     return "Context: " + "\n".join(context)
 
-async def get_links_and_content(init_url: str) -> Tuple[List[str], Set[str]]:
-    context, urls = [], set()
-    driver = Geckodriver(log_file=os.path.devnull)
-    browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless']}})
-
-    try:
-        async with get_session(driver, browser) as session:
-            await session.get(init_url)
-            # Wait for page load
-            await session.wait_for_element(2, 'body')
-
-            page_source = await session.get_page_source()
-            soup = BeautifulSoup(page_source, "lxml")
-            text = "\n".join(soup.get_text(".", True).split("."))
-            
-            tags = await session.get_elements('a')
-            for tag in tags:
-                link = await tag.get_attribute('href')
-                if passed_link_check(link):
-                    urls.add(link)
-        context.append(text)
-        return context, urls
-    except (TimeoutError, StaleElementReference) as e:
-        print(f"ERROR! {e}")
-        return [], set()
+async def get_links_and_content(url: str) -> Tuple[List[str], Set[str]]:
+    global context, urls
+    async with aiohttp.ClientSession() as session:
+        # asyncio.create_task() will throw all the tasks onto the event loop so asyncio.gather() just has to wait for responses.
+        tasks = [asyncio.create_task(session.get(url, ssl=False)) for url in urls]
+        responses = await asyncio.gather(*tasks)
+        for response in responses:
+            print(response)
 
 def passed_link_check(link: str) -> bool:
     if not link or not validators.url(link):
@@ -170,10 +140,10 @@ def passed_link_check(link: str) -> bool:
     return True
 
 if __name__ == "__main__":
-    start = time.time()
+    start = time.perf_counter()
     parse_college(college, interests)
-    end = time.time()
+    end = time.perf_counter()
 
     print(f"Total time: {(end - start):2f}")
-    with open("logs.txt", "a") as fp:
-        fp.write(f"Total time: {(end - start):2f}\n")
+    with open("texts/time.txt", "a") as fp:
+        fp.write(f"Total time: {(end - start):2f}\n" + "-" * 50 + "\n")
