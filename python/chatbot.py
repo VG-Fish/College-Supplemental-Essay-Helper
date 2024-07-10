@@ -146,4 +146,4 @@ if __name__ == "__main__":
 
     print(f"Total time: {(end - start):2f}")
     with open("texts/time.txt", "a") as fp:
-        fp.write(f"Total time: {(end - start):2f}\n" + "-" * 50 + "\n")
+        fp.write(f"Total time: {(end - start):2f}s\n" + "-" * 50 + "\n")
