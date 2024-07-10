@@ -14,11 +14,12 @@ class Crawler():
         self.interests: str = interests
         self.context: List[str] = []
         self.urls: Set[str] = set()
+        self.init_url = f"https://www.google.com/search?q={self.college}+{self.interests}+opportunities+or+activities"
 
     def get_links_and_urls(self: Self, html: str) -> Tuple[Set[str], str]:
-        soup = BeautifulSoup(html, "lxml")
-        urls, text = set(), ""
-        text = "\n".join(soup.get_text(".", True).split("."))
+        soup: BeautifulSoup = BeautifulSoup(html, "lxml")
+        urls: Set[str] = set()
+        text: str = "\n".join(soup.get_text(".", True).split("."))
 
         for tag in soup.find_all("a"):
             link = tag.get("href")
@@ -37,7 +38,7 @@ class Crawler():
             if b_l in link:
                 return False
 
-        college_words = self.college.split()
+        college_words: List[str] = self.college.split()
         for c_w in college_words:
             if c_w in link:
                 return True
@@ -49,23 +50,23 @@ class Crawler():
         link = re.sub(":\d+", "", link)
         return link
 
-    async def get_initial_links(self: Self, url: str) -> None:
-        driver = Geckodriver(log_file=os.path.devnull)
-        browser = Firefox(**{'moz:firefoxOptions': {'args': ['-headless']}})
+    async def get_initial_links(self: Self) -> None:
+        driver: Geckodriver = Geckodriver(log_file=os.path.devnull)
+        browser: Firefox = Firefox(**{'moz:firefoxOptions': {'args': ['-headless']}})
 
         try:
             async with get_session(driver, browser) as session:
-                await session.get(url)
+                await session.get(self.init_url)
                 # Wait for page load
                 await session.wait_for_element(2, 'body')
 
-                page_source = await session.get_page_source()
-                soup = BeautifulSoup(page_source, "lxml")
-                text = "\n".join(soup.get_text(".", True).split("."))
+                page_source: str = await session.get_page_source()
+                soup: BeautifulSoup = BeautifulSoup(page_source, "lxml")
+                text: str = "\n".join(soup.get_text(".", True).split("."))
                 
-                tags = await session.get_elements('a')
+                tags: List = await session.get_elements('a')
                 for tag in tags:
-                    link = await tag.get_attribute('href')
+                    link: str = await tag.get_attribute('href')
                     if self.passed_link_check(link):
                         self.urls.add(link)
             self.context.append(text)
@@ -83,8 +84,8 @@ class Crawler():
                 return ""
 
     async def get_all_content(self: Self) -> None:
-        tasks = [asyncio.create_task(self.get_text(url)) for url in self.urls]
-        texts = await asyncio.gather(*tasks)
+        tasks: List[asyncio.Task[str]] = [asyncio.create_task(self.get_text(url)) for url in self.urls]
+        texts: List[str] = await asyncio.gather(*tasks)
         # Get rid of empty strings
         texts = list(filter(None, texts))
         self.urls.clear()
@@ -92,18 +93,12 @@ class Crawler():
         print("Finished receiving the html of all urls. Now scraping the urls.")
 
         with ProcessPoolExecutor() as executor:
-            results = executor.map(self.get_links_and_urls, texts)
-            for result in results:
+            for result in executor.map(self.get_links_and_urls, texts):
                 self.urls.update(result[0])
                 self.context.append(result[1])
 
-        with open("texts/logs.txt", "w") as fp:
-            for num, url in enumerate(self.urls):
-                fp.write(f"URL {num}: {url}\n")
-        
-        with open("texts/prompt.txt", "w") as fp:
-            fp.write(self.get_context())
-        
+        self.write_to_file("texts/log.txt")
+        self.write_to_file("texts/prompt.txt")
         print("Finished task.")
     
     def get_context(self: Self) -> str:
@@ -117,6 +112,11 @@ class Crawler():
             with open("texts/logs.txt", "w") as fp:
                 fp.write(f"{self.urls}\n")
                 fp.write(f"{len(self.urls) = }")
+        elif path == "texts/prompt.txt":
+            with open("texts/logs.txt", "w") as fp:
+                fp.write(f"{self.get_context()}\n")
+        else:
+            print(f"Unknown file path: {path}")
 
 async def main() -> None:
     college: str = "MIT"
@@ -128,8 +128,9 @@ async def run(college: str, interests: str) -> None:
 
     crawler: Crawler = Crawler(college, interests)
 
-    await crawler.get_initial_links(f"https://www.google.com/search?q={college}+{interests}+opportunities+or+activities")
-    for i in range(3):
+    await crawler.get_initial_links()
+
+    for _ in range(3):
         await crawler.get_all_content()
     
     end: float = time.perf_counter()
