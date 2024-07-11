@@ -1,1 +1,2 @@
-A free version of perplexity AI api (no citations yet) using the una-cybertron model and a web crawler.
+A web scraper & crawler combined with the una-cybertron model (which is good at text extraction). 
+This is supposed to be like [Perplexity AI]https://www.perplexity.ai/
