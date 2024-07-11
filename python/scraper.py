@@ -9,9 +9,9 @@ from typing_extensions import Self
 
 class Crawler():
     def __init__(self: Self, college: str, interests: str) -> None:
-        self.black_list: List[str] = ["youtube", "youtu.be", "facebook", "threads", "instagram", "tiktok","twitter","calendar", "mail", "payment","princetonreview","sat","login","password","register","account","comments","maps","linkedin","manipal"]
-        self.college: str = college
-        self.interests: str = interests
+        self.black_list: List[str] = ["youtube", "youtu.be", "facebook", "threads", "instagram", "tiktok","twitter","calendar", "mail", "payment","princetonreview","sat","login","password","register","account","maps","linkedin","manipal"]
+        self.college: str = college.lower()
+        self.interests: str = interests.lower()
         self.context: List[str] = []
         self.urls: Set[str] = set()
         self.init_url = f"https://www.google.com/search?q={self.college}+{self.interests}+opportunities+or+activities"
@@ -97,7 +97,7 @@ class Crawler():
                 self.urls.update(result[0])
                 self.context.append(result[1])
 
-        self.write_to_file("texts/log.txt")
+        self.write_to_file("texts/logs.txt")
         self.write_to_file("texts/prompt.txt")
         print("Finished task.")
     
@@ -108,33 +108,36 @@ class Crawler():
         if path == "texts/time.txt" and time:
             with open(path, "w") as fp:
                 fp.write(f"TOTAL TIME: {time:2f}s\n" + "-" * 50 + "\n")
+        
         elif path == "texts/logs.txt":
-            with open("texts/logs.txt", "w") as fp:
+            with open(path, "w") as fp:
                 fp.write(f"{self.urls}\n")
                 fp.write(f"{len(self.urls) = }")
+        
         elif path == "texts/prompt.txt":
-            with open("texts/logs.txt", "w") as fp:
+            with open(path, "w") as fp:
                 fp.write(f"{self.get_context()}\n")
+        
         else:
             print(f"Unknown file path: {path}")
+        
+    async def run(self: Self, iterations: int | None = 2) -> None:
+        start: float = time.perf_counter()
+
+        await self.get_initial_links()
+
+        for _ in range(iterations):
+            await self.get_all_content()
+        
+        end: float = time.perf_counter()
+        self.write_to_file("texts/time.txt", end - start)
+        self.write_to_file("texts/prompt.txt")
 
 async def main() -> None:
     college: str = "MIT"
     interests: str = "mechatronics"
-    await run(college, interests)
-
-async def run(college: str, interests: str) -> None:
-    start: float = time.perf_counter()
-
     crawler: Crawler = Crawler(college, interests)
-
-    await crawler.get_initial_links()
-
-    for _ in range(3):
-        await crawler.get_all_content()
-    
-    end: float = time.perf_counter()
-    crawler.write_to_file("texts/time.txt", end - start)
+    await crawler.run(3)
 
 if __name__ == "__main__":
    asyncio.run(main())
