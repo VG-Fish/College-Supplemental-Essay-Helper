@@ -56,7 +56,7 @@ def get_response() -> None:
     print("Starting model inference...")
 
     completion = client.chat.completions.create(
-        model="RichardErkhov/fblgit_-_una-cybertron-7b-v1-fp16-gguf",
+        model="lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF",
         messages=[
         {"role": "system", "content": " ".join(system_context.split("\n"))},
         {"role": "user", "content": prompt}

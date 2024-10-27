@@ -134,10 +134,10 @@ class Crawler():
         self.write_to_file("texts/prompt.txt")
 
 async def main() -> None:
-    college: str = "MIT"
-    interests: str = "mechatronics"
+    college: str = "Purdue"
+    interests: str = "Robotics"
     crawler: Crawler = Crawler(college, interests)
-    await crawler.run(3)
+    await crawler.run(2)
 
 if __name__ == "__main__":
    asyncio.run(main())
